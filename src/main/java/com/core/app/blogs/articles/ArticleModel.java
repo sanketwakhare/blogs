@@ -4,15 +4,12 @@ import com.core.app.blogs.common.BaseModel;
 import com.core.app.blogs.users.UserModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
+import lombok.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity(name = "articles")
-@Builder
+@NoArgsConstructor
 public class ArticleModel extends BaseModel {
 
     @NonNull

@@ -7,10 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Email;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
+import lombok.*;
 import org.springframework.context.annotation.Lazy;
 
 import java.util.Set;
@@ -18,7 +15,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Entity(name = "users")
 @Data
-@Builder
+@NoArgsConstructor
 public class UserModel extends BaseModel {
 
     @NonNull

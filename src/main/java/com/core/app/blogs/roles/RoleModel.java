@@ -5,15 +5,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NonNull;
+import lombok.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity(name = "roles")
-@Builder
+@NoArgsConstructor
 public class RoleModel extends BaseModel {
 
     @NonNull
