@@ -1,7 +1,7 @@
 package com.core.app.blogs.users;
 
 import com.core.app.blogs.users.dtos.CreateUserRequestDTO;
-import com.core.app.blogs.users.dtos.CreateUserResponseDTO;
+import com.core.app.blogs.users.dtos.UserResponseDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,15 +16,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final ModelMapper modelMapper;
+    public final UserService userService;
 
-    public UserController(@Autowired ModelMapper modelMapper) {
+    public UserController(@Autowired ModelMapper modelMapper, @Autowired UserService userService) {
         this.modelMapper = modelMapper;
+        this.userService = userService;
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<CreateUserResponseDTO> createUser(@RequestBody CreateUserRequestDTO requestDTO) {
-        UserModel requestUser = modelMapper.map(requestDTO, UserModel.class);
-        CreateUserResponseDTO userResponseDTO = modelMapper.map(requestUser, CreateUserResponseDTO.class);
+    public ResponseEntity<UserResponseDTO> createUser(@RequestBody CreateUserRequestDTO requestDTO) {
+        UserModel savedUser = userService.createUser(requestDTO.getEmail(), requestDTO.getPassword());
+
+        // populate response
+        UserResponseDTO userResponseDTO = modelMapper.map(savedUser, UserResponseDTO.class);
+        UserUtils.mapRoles(savedUser, userResponseDTO);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDTO);
     }
 }
