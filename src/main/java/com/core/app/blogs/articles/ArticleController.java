@@ -4,7 +4,6 @@ import com.core.app.blogs.articles.dtos.ArticleResponseDTO;
 import com.core.app.blogs.articles.dtos.CreateArticleRequestDTO;
 import com.core.app.blogs.common.dtos.Message;
 import com.core.app.blogs.common.utils.MapperUtils;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
