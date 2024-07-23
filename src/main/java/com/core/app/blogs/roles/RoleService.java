@@ -1,5 +1,6 @@
 package com.core.app.blogs.roles;
 
+import com.core.app.blogs.common.exceptions.InvalidModelException;
 import com.core.app.blogs.users.IUserRepository;
 import com.core.app.blogs.users.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,7 @@ public class RoleService {
     public void assignRoles(String userId, RoleType[] roles) {
         Optional<UserModel> user = userRepository.findById(userId);
         if (user.isEmpty()) {
-            // invalid user
-            throw new RuntimeException("Invalid User");
+            throw new InvalidModelException("User");
         }
         UserModel userModel = user.get();
         Set<RoleModel> existingRoles = userModel.getRoles();

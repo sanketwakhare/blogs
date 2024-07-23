@@ -1,5 +1,7 @@
 package com.core.app.blogs.articles;
 
+import com.core.app.blogs.common.exceptions.InvalidModelException;
+import com.core.app.blogs.common.exceptions.ModelNotFoundException;
 import com.core.app.blogs.common.utils.SlugService;
 import com.core.app.blogs.users.IUserRepository;
 import com.core.app.blogs.users.UserModel;
@@ -24,8 +26,7 @@ public class ArticleService {
         // get author
         Optional<UserModel> user = userRepository.findById(authorId);
         if (user.isEmpty()) {
-            // throw exception
-            throw new RuntimeException("Invalid user");
+            throw new InvalidModelException("Article");
         }
         UserModel author = user.get();
 
@@ -46,7 +47,7 @@ public class ArticleService {
     public ArticleModel getArticleBySlug(String slug) {
         Optional<ArticleModel> dbArticle = articleRepository.findBySlug(slug);
         if (dbArticle.isEmpty()) {
-            throw new RuntimeException("Article not found");
+            throw new ModelNotFoundException("Article");
         }
         return dbArticle.get();
     }
@@ -58,7 +59,7 @@ public class ArticleService {
     public void updateArticleStatus(String articleId, ArticleStatus status) {
         Optional<ArticleModel> dbArticle = articleRepository.findById(articleId);
         if(dbArticle.isEmpty()) {
-            throw new RuntimeException("Article not found");
+            throw new ModelNotFoundException("Article");
         }
         ArticleModel articleModel = dbArticle.get();
         articleModel.setStatus(status);
