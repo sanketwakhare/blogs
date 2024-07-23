@@ -6,6 +6,7 @@ import com.core.app.blogs.users.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,11 +41,17 @@ public class ArticleService {
         articleRepository.save(articleModel);
     }
 
+    // TODO: get only published articles
+    // TODO: draft articles should be accessible to only authors which owns the article
     public ArticleModel getArticleBySlug(String slug) {
         Optional<ArticleModel> dbArticle = articleRepository.findBySlug(slug);
         if (dbArticle.isEmpty()) {
             throw new RuntimeException("Article not found");
         }
         return dbArticle.get();
+    }
+
+    public List<ArticleModel> getAllArticles() {
+        return articleRepository.findAll();
     }
 }
