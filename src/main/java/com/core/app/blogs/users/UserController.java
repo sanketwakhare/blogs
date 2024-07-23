@@ -33,4 +33,7 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDTO);
     }
+
+    // TODO: get user by Id
+    // TODO : delete user [ADMIN] - toggle isDeleted flag
 }
