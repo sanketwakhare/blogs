@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("api/roles")
 public class RoleController {
@@ -36,7 +34,7 @@ public class RoleController {
 
     @PostMapping("/assign")
     public ResponseEntity<Message> assignRoles(@RequestBody AssignRolesRequestDTO requestDTO) {
-        UUID userId = requestDTO.getUserId();
+        String userId = requestDTO.getUserId();
         RoleType[] roles = requestDTO.getRoles();
 
         roleService.assignRoles(userId, roles);

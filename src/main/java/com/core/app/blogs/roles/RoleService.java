@@ -31,7 +31,7 @@ public class RoleService {
         return new HashSet<>(requiredRoles);
     }
 
-    public void assignRoles(UUID userId, RoleType[] roles) {
+    public void assignRoles(String userId, RoleType[] roles) {
         Optional<UserModel> user = userRepository.findById(userId);
         if (user.isEmpty()) {
             // invalid user
@@ -46,5 +46,6 @@ public class RoleService {
                 existingRoles.add(roleModel);
             }
         }
+        userRepository.save(userModel);
     }
 }
