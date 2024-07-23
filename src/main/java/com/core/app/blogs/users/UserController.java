@@ -35,5 +35,6 @@ public class UserController {
     }
 
     // TODO: get user by Id
+    // TODO: login api
     // TODO : delete user [ADMIN] - toggle isDeleted flag
 }

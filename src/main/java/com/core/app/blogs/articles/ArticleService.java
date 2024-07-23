@@ -54,4 +54,14 @@ public class ArticleService {
     public List<ArticleModel> getAllArticles() {
         return articleRepository.findAll();
     }
+
+    public void updateArticleStatus(String articleId, ArticleStatus status) {
+        Optional<ArticleModel> dbArticle = articleRepository.findById(articleId);
+        if(dbArticle.isEmpty()) {
+            throw new RuntimeException("Article not found");
+        }
+        ArticleModel articleModel = dbArticle.get();
+        articleModel.setStatus(status);
+        articleRepository.save(articleModel);
+    }
 }

@@ -2,6 +2,7 @@ package com.core.app.blogs.articles;
 
 import com.core.app.blogs.articles.dtos.ArticleResponseDTO;
 import com.core.app.blogs.articles.dtos.CreateArticleRequestDTO;
+import com.core.app.blogs.articles.dtos.UpdateArticleStatusRequestDTO;
 import com.core.app.blogs.common.dtos.Message;
 import com.core.app.blogs.common.utils.MapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,13 @@ public class ArticleController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(articlesDTO);
+    }
+
+    @PutMapping("/updateStatus")
+    public ResponseEntity<Message> updateArticleStatus(@RequestBody UpdateArticleStatusRequestDTO requestDTO) {
+        String articleId = requestDTO.getArticleId();
+        ArticleStatus status = requestDTO.getStatus();
+        articleService.updateArticleStatus(articleId, status);
+        return ResponseEntity.status(HttpStatus.OK).body(new Message("Article status updated"));
     }
 }
