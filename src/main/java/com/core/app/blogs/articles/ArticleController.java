@@ -4,8 +4,6 @@ import com.core.app.blogs.articles.dtos.ArticleResponseDTO;
 import com.core.app.blogs.articles.dtos.CreateArticleRequestDTO;
 import com.core.app.blogs.common.dtos.Message;
 import com.core.app.blogs.common.utils.MapperUtils;
-import com.core.app.blogs.users.UserUtils;
-import com.core.app.blogs.users.dtos.UserResponseDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,11 +18,9 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
-    private final ModelMapper modelMapper;
 
-    public ArticleController(@Autowired ArticleService articleService, @Autowired ModelMapper modelMapper) {
+    public ArticleController(@Autowired ArticleService articleService) {
         this.articleService = articleService;
-        this.modelMapper = modelMapper;
     }
 
     @PostMapping
