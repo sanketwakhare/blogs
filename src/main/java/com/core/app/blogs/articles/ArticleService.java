@@ -22,8 +22,9 @@ public class ArticleService {
     public void createArticle(String title, String body, String authorId) {
         // get author
         Optional<UserModel> user = userRepository.findById(authorId);
-        if(user.isEmpty()) {
+        if (user.isEmpty()) {
             // throw exception
+            throw new RuntimeException("Invalid user");
         }
         UserModel author = user.get();
 
@@ -37,5 +38,13 @@ public class ArticleService {
         articleModel.setStatus(ArticleStatus.DRAFT);
 
         articleRepository.save(articleModel);
+    }
+
+    public ArticleModel getArticleBySlug(String slug) {
+        Optional<ArticleModel> dbArticle = articleRepository.findBySlug(slug);
+        if (dbArticle.isEmpty()) {
+            throw new RuntimeException("Article not found");
+        }
+        return dbArticle.get();
     }
 }

@@ -1,6 +1,5 @@
 package com.core.app.blogs.users.dtos;
 
-import com.core.app.blogs.roles.RoleType;
 import lombok.Data;
 
 import java.util.Set;
