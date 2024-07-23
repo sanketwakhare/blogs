@@ -1,20 +1,22 @@
 package com.core.app.blogs.roles;
 
+import com.core.app.blogs.users.IUserRepository;
+import com.core.app.blogs.users.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class RoleService {
 
     private final IRoleRepository roleRepository;
+    private final IUserRepository userRepository;
 
-    public RoleService(@Autowired IRoleRepository roleRepository) {
+    public RoleService(@Autowired IRoleRepository roleRepository, @Autowired IUserRepository userRepository) {
         this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
     }
 
     public RoleModel createRole(RoleType roleName) {
@@ -27,5 +29,22 @@ public class RoleService {
         List<RoleModel> roles = roleRepository.findAll();
         List<RoleModel> requiredRoles = roles.stream().filter(r -> roleTypes.contains(r.getRole())).toList();
         return new HashSet<>(requiredRoles);
+    }
+
+    public void assignRoles(UUID userId, RoleType[] roles) {
+        Optional<UserModel> user = userRepository.findById(userId);
+        if (user.isEmpty()) {
+            // invalid user
+            throw new RuntimeException("Invalid User");
+        }
+        UserModel userModel = user.get();
+        Set<RoleModel> existingRoles = userModel.getRoles();
+        for (RoleType roleName : roles) {
+            Optional<RoleModel> role = roleRepository.findByRoleName(roleName);
+            if (role.isPresent()) {
+                RoleModel roleModel = role.get();
+                existingRoles.add(roleModel);
+            }
+        }
     }
 }

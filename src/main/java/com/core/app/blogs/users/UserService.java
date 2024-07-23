@@ -25,7 +25,7 @@ public class UserService {
         userModel.setPassword(password);
 
         // populate roles
-        Set<RoleModel> roles = roleService.getRoles(Set.of(RoleType.USER, RoleType.AUTHOR));
+        Set<RoleModel> roles = roleService.getRoles(Set.of(RoleType.USER));
         userModel.setRoles(roles);
 
         // save user
